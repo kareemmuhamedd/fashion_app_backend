@@ -16,6 +16,7 @@
 16. sqlite> .table
 17. sqlite> DROP TABLE <table>;
 
+
 <!-- Go to backend >>> settings.py and add 'core' to the INSTALLED_APPS -->
 
 ![alt text](image.png)
