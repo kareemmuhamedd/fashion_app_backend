@@ -1,1 +1,25 @@
+// Ignore virtual environment files
 venv/
+
+// Ignore Django's internal files and folders
+*.pyc
+__pycache__/
+*.egg-info/
+
+// Ignore Django's tmp directory
+tmp/
+
+// Ignore Django's cache directory
+*cache*
+
+// Ignore Python's build-in temporary directory
+*.pyd
+
+// Ignore Django's log directory
+logs/
+
+// Ignore Pycache
+.cache/
+
+// Ignore SQLite database file
+db.sqlite3

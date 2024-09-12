@@ -7,12 +7,12 @@ import random
 
 
 class CategoryList(generics.ListAPIView):
-    serializers_class = serializers.CategorySerializer
+    serializer_class = serializers.CategorySerializer
     queryset = models.Category.objects.all()
 
 
 class HomeCategoryList(generics.ListAPIView):
-    serializers_class = serializers.CategorySerializer
+    serializer_class = serializers.CategorySerializer
 
     def get_queryset(self):
         queryset = models.Category.objects.all()
@@ -23,12 +23,12 @@ class HomeCategoryList(generics.ListAPIView):
 
 
 class BrandList(generics.ListAPIView):
-    serializers_class = serializers.BrandSerializer
+    serializer_class = serializers.BrandSerializer
     queryset = models.Brand.objects.all()
 
 
 class ProductList(generics.ListAPIView):
-    serializers_class = serializers.ProductSerializer
+    serializer_class = serializers.ProductSerializer
 
     def get_queryset(self):
         queryset = models.Product.objects.all()
@@ -39,7 +39,7 @@ class ProductList(generics.ListAPIView):
 
 
 class PopularProductslist(generics.ListAPIView):
-    serializers_class = serializers.ProductSerializer
+    serializer_class = serializers.ProductSerializer
 
     def get_queryset(self):
         queryset = models.Product.objects.filter(
@@ -50,10 +50,10 @@ class PopularProductslist(generics.ListAPIView):
         return queryset[:20]
 
 
-class ProductListByClothesType(generics.ListAPIView):
-    serializers_class = serializers.ProductSerializer
+class ProductListByClothesType(APIView):
+    serializer_class = serializers.ProductSerializer
 
-    def get_queryset(self, request):
+    def get(self, request):
         query = request.query_params.get('clothesType', None)
         if query:
             queryset = models.Product.objects.filter(clothesType=query)
