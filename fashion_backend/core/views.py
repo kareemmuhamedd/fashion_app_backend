@@ -66,24 +66,25 @@ class ProductListByClothesType(APIView):
             return Response(serializer.data)
         else:
             return Response({'message': 'No query provided'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
 
 class SimilarProducts(APIView):
-    def get(self,request):
+    def get(self, request):
         query = request.query_params.get('category', None)
         if query:
             products = models.Product.objects.filter(category=query)
             product_list = list(products)
             random.shuffle(product_list)
             limited_products = product_list[:6]
-            serializer = serializers.ProductSerializer(limited_products, many=True)
+            serializer = serializers.ProductSerializer(
+                limited_products, many=True)
             return Response(serializer.data)
         else:
             return Response({'message': 'No query provided'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
 
 class SearchProductByTitle(APIView):
-    def get(self,request):
+    def get(self, request):
         query = request.query_params.get('q', None)
         if query:
             products = models.Product.objects.filter(title__icontains=query)
@@ -91,11 +92,10 @@ class SearchProductByTitle(APIView):
             return Response(serializer.data)
         else:
             return Response({'message': 'No query provided'}, status=status.HTTP_400_BAD_REQUEST)
-        
 
 
 class FilterProductsByCategory(APIView):
-    def get(self,request):
+    def get(self, request):
         query = request.query_params.get('category', None)
         if query:
             products = models.Product.objects.filter(category=query)
@@ -103,4 +103,3 @@ class FilterProductsByCategory(APIView):
             return Response(serializer.data)
         else:
             return Response({'message': 'No query provided'}, status=status.HTTP_400_BAD_REQUEST)
-
