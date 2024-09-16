@@ -7,7 +7,7 @@ from core.models import Product
 class Cart(models.Model):
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quentity = models.IntegerField(default=1)
+    quantity = models.IntegerField(default=1)
     size = models.CharField(max_length=50, blank=False)
     color = models.CharField(max_length=50, blank=False)
     created_at = models.DateTimeField(default=timezone.now)

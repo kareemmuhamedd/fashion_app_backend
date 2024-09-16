@@ -70,7 +70,7 @@ class CartCount(APIView):
         return Response({'cart_count': cart_count}, status=status.HTTP_200_OK)
 
 
-class UpdateCart(APIView):
+class UpdateCartItemQuantity(APIView):
     permission_classes = [IsAuthenticated]
 
     def patch(self, request):
@@ -78,17 +78,18 @@ class UpdateCart(APIView):
         count = request.query_params.get('count')
 
         cart_item = get_object_or_404(Cart, id=item_id)
-        cart_item.quentity = count
+
+        cart_item.quantity = count
         cart_item.save()
         return Response({'message': 'Cart updated successfully'}, status=status.HTTP_200_OK)
 
 
 class GetUserCart(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = CartSerializer
+    permission_classes = [IsAuthenticated]
 
-    def get(self):
-        user = self.request.user
+    def get(self, request):
+        user = request.user
         cart_itmes = Cart.objects.filter(userId=user).order_by('-created_at')
         serializer = CartSerializer(cart_itmes, many=True)
         return Response(serializer.data)
