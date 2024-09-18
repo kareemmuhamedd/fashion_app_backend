@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
-class AddItemToCart (APIView):
+class AddItemToCart(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
