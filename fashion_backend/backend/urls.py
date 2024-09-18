@@ -14,4 +14,6 @@ urlpatterns = [
 
     path('api/cart/', include('cart.urls')),
 
+    path('api/address/',include('extras.urls')),
+
 ]
