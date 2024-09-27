@@ -16,4 +16,6 @@ urlpatterns = [
 
     path('api/address/',include('extras.urls')),
 
+    path('api/orders/',include('order.urls')),
+
 ]
