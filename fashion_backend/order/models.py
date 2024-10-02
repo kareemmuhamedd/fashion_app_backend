@@ -31,7 +31,7 @@ class Order(models.Model):
     total = models.FloatField()
     delivery_status = models.CharField(
         max_length=255, choices=ORDERSTATUS, default=PENDING)
-    payment_status = models.CharField(max_length=255, choices=PAYMENTSTATUS)
+    payment_status = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 

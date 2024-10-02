@@ -36,36 +36,36 @@ class AddOrder(APIView):
                         }
                     )
 
-                    address = get_object_or_404(
-                        Address, id=int(data['address']))
+                address = get_object_or_404(
+                    Address, id=int(data['address']))
 
-                    order = models.Order.objects.create(
-                        user=request.user,
-                        customer_id=data['customer_id'],
-                        address=address,
-                        order_products=validated_products,
-                        rated=[0],
-                        total_quantity=data['total_quantity'],
-                        subtotal=data['subtotal'],
-                        total=data['total'],
-                        delivery_status=data['delivery_status'],
-                        payment_status=data['payment_status']
-                    )
-                    # create notification
-                    title = 'Order Successfully Placed'
-                    message = 'Your payment has been successfully and your order has been successfully placed'
-                    Notification.objects.create(
-                        userId=request.user,
-                        orderId=order,
-                        title=title,
-                        message=message
-                    )
-                    order.save()
+                order = models.Order.objects.create(
+                    user=request.user,
+                    customer_id=data['customer_id'],
+                    address=address,
+                    order_products=validated_products,
+                    rated=[0],
+                    total_quantity=data['total_quantity'],
+                    subtotal=data['subtotal'],
+                    total=data['total'],
+                    delivery_status=data['delivery_status'],
+                    payment_status=data['payment_status']
+                )
+                # create notification
+                title = 'Order Successfully Placed'
+                message = 'Your payment has been successfully and your order has been successfully placed'
+                Notification.objects.create(
+                    userId=request.user,
+                    orderId=order,
+                    title=title,
+                    message=message
+                )
+                order.save()
 
-                    return Response({"id": order.id}, status=status.HTTP_201_CREATED)
-        except Product.DoseNotExist:
+                return Response({"id": order.id}, status=status.HTTP_201_CREATED)
+        except Product.DoesNotExist:
             return Response({"message": "one or more products not found"}, status=status.HTTP_404_NOT_FOUND)
-        except Address.DoseNotExist:
+        except Address.DoesNotExist:
             return Response({"message": "user address dose not exist"}, status=status.HTTP_404_NOT_FOUND)
         except KeyError as e:
             return Response({"message": f"Missing key:{str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
